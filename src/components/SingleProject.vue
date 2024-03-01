@@ -1,6 +1,11 @@
 <script>
 export default {
-
+    name: 'SingleProject',
+    data() {
+        return {
+            projects:[]
+        }
+    },
 }
 </script>
 <template lang="">
