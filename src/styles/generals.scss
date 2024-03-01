@@ -1,0 +1,9 @@
+@import '/node_modules/bootstrap/scss/bootstrap.scss';
+
+@use './partials/variables' as *;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
