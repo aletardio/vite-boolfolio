@@ -33,7 +33,7 @@ export default {
         <img class="rounded-top-1":src="getUrlImg()">
         <div class="card-body ">
             <h5 class="card-title text-center my-2">{{project.title}}</h5>
-            <p class="card-text "><strong>Descrizione:</strong> {{project.description.substr(0,80)+"..."}}</p>
+            <p class="card-text "><strong>Descrizione:</strong> {{project.description.substr(0,70)+"..."}}</p>
             <p class="card-text "><strong>Link:</strong> {{project.link.substr(0,30)+"..."}}</p>
         </div>
     </div>

@@ -19,9 +19,15 @@ export default {
     this.getProjects();
   },
   methods: {
-    getProjects(){
-      axios.get(`${this.store.baseUrl}/api/projects`).then((response) => {
+    getProjects(page_num){
+      axios.get(`${this.store.baseUrl}/api/projects`, {
+        params: {
+            page: page_num
+        }
+      }).then((response) => {
         this.projects = response.data.results.data;
+        this.currentPage = response.data.results.current_page;
+        this.lastPage = response.data.results.last_page;
       })
     }
   },
@@ -42,10 +48,30 @@ export default {
                 <div class="row">
                     <ProjectCard v-for="project, index in projects" :key="index" :project="project"/>
                 </div>
+                <div class="row">
+                <div class="col-12 d-flex justify-content-center ">
+                    
+                    <ul class="pagination mt-4">
+                        <li>
+                            <button :class="currentPage == 1 ? 'disabled' : ''" class="btn btn-sm btn-square btn-page mx-2" @click="getProjects(currentPage - 1)">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                        </li>
+                        <li>
+                            <button :class="currentPage == lastPage ? 'disabled' : ''" class="btn btn-sm btn-square btn-page" @click="getProjects(currentPage + 1)">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             </div>
         </div>
     </div>
 </template>
-<style lang="">
-    
+<style lang="scss" scoped>
+    .btn-page {
+        background-color: #252525;
+        color: #fff;
+    }
 </style>
