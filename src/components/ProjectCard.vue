@@ -58,7 +58,7 @@ export default {
 
 </template>
 <style lang="scss" scoped>
-    // .card.my-3.shadow {
-    // height: 450px;
-    // }
+    .card.my-3.shadow {
+    height: 500px;
+    }
 </style>
