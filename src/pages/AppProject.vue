@@ -1,18 +1,20 @@
 <script>
 import axios from 'axios';
 import { store } from '../store.js'
-import ProjectCard from './ProjectCard.vue';
+import ProjectCard from '../components/ProjectCard.vue';
 
 
 export default {
-    name: 'AppMain',
+    name: 'AppProject',
     components: {
         ProjectCard
     },
     data() {
         return {
             projects:[],
-            store
+            store,
+            currentPage: 1,
+            lastPage: null
         }
     },
   created() {
@@ -74,4 +76,4 @@ export default {
         background-color: #252525;
         color: #fff;
     }
-</style>
+</style>./AppMain.vue/index.js
