@@ -41,7 +41,7 @@ export default {
             <div class="row">
                 <div class="col-12">
                     <h2 class="text-center">
-                        Boolfolio
+                        Progetti
                     </h2>
                     <p class="text-center">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam optio totam esse voluptate placeat, dicta iure debitis quaerat explicabo et quis quisquam dolores, unde ipsa consectetur accusantium vel laudantium in!
