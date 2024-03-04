@@ -1,6 +1,14 @@
 <script>
+
+import { store } from "../store.js";
+
 export default {
-    name: 'AppHeader'
+    name: 'AppHeader',
+    data() {
+        return {
+            store
+        }
+    },
 }
 </script>
 <template lang="">
@@ -10,16 +18,10 @@ export default {
                 <div class="col-6">
                     <h2 class="ps-4">Boolfolio</h2>
                 </div>
-                <div class="col-6 d-flex justify-content-center align-items-center">
-                    <ul class="list-unstyled d-flex mt-1">
-                        <li>
-                            <a class="link-offset-2 link-underline link-underline-opacity-0 pe-5" href="#">Home</a>
-                        </li>
-                        <li>
-                            <a class="link-offset-2 link-underline link-underline-opacity-0 pe-5" href="#">Progetti</a>
-                        </li>
-                        <li>
-                            <a class="link-offset-2 link-underline link-underline-opacity-0 pe-5" href="#">Contatti</a>
+                <div class="col-6 d-flex justify-content-center">
+                    <ul class="list-unstyled d-flex align-items-center mt-1">
+                        <li class="pe-5 fw-bold" v-for="item, index in store.menuItems" :key="index">
+                            <router-link :to="{ name: item.name }">{{ item.label }}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -33,11 +35,16 @@ export default {
         color: #fff;
         padding: 20px 0;
 
-        a {
-            color: #fff;
 
-            &:hover{
-                color: rgb(149, 149, 149);
+        ul {
+            margin: 5px 0;
+            a {
+                text-decoration: none;
+                color: #fff;
+    
+                &:hover{
+                    color: rgb(149, 149, 149);
+                }
             }
         }
     }
