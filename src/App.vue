@@ -12,7 +12,7 @@ export default {
 </script>
 <template lang="">
   <AppHeader/>
-  <AppMain/>
+  <router-view></router-view>
 </template>
 <style lang="scss" scoped>
   
