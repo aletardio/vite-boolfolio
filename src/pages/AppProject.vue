@@ -14,10 +14,8 @@ export default {
             projects:[],
             types:[],
             store,
-            currentPageProjects: 1,
-            lastPageProjects: null,
-            currentPageTypes: 1,
-            lastPageTypes: null,
+            currentPage: 1,
+            lastPage: null,
         }
     },
   created() {
@@ -32,19 +30,14 @@ export default {
         }
       }).then((response) => {
         this.projects = response.data.results.data;
-        this.currentPageProjects = response.data.results.current_page;
-        this.lastPageProjects = response.data.results.last_page;
+        this.currentPage = response.data.results.current_page;
+        this.lastPage = response.data.results.last_page;
       })
     },
-    getTypes(page_num){
+    getTypes(){
       axios.get(`${this.store.baseUrl}/api/types`, {
-        params: {
-            page: page_num
-        }
       }).then((response) => {
         this.types = response.data.results.data;
-        this.currentPageTypes = response.data.results.current_page;
-        this.lastPageTypes = response.data.results.last_page;
       })
     }
   },
