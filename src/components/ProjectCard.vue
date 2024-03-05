@@ -40,6 +40,7 @@ export default {
 <template lang="">
 
 <div class="col-4">
+    <router-link :to="{ name: 'single-project', params: { slug: project.slug} }">
     <div class="card my-3 shadow">
         <img class="rounded-top-1":src="getUrlImg()">
         <div class="card-body">
@@ -54,6 +55,7 @@ export default {
             </p>
         </div>
     </div>
+    </router-link>
 </div>
 
 </template>
