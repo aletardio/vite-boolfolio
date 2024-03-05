@@ -40,7 +40,7 @@ export default {
 <template lang="">
 
 <div class="col-4">
-    <router-link :to="{ name: 'single-project', params: { slug: project.slug} }">
+    <router-link :to="{ name: 'single-project', params: { slug: project.slug } }">
     <div class="card my-3 shadow">
         <img class="rounded-top-1":src="getUrlImg()">
         <div class="card-body">
@@ -64,7 +64,7 @@ export default {
     a{
         text-decoration: none;
     }
-    
+
     .card.my-3.shadow {
     height: 500px;
     }

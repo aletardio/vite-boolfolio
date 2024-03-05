@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard.vue';
 
 
 export default {
-    name: 'AppProject',
+    name: 'TypeProjects',
     components: {
         ProjectCard
     },
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     getProjects(page_num){
-      axios.get(`${this.store.baseUrl}/api/projects`, {
+      axios.get(`${this.store.baseUrl}/api/projects/type/${this.$route.params.slug}`, {
         params: {
             page: page_num
         }
@@ -47,17 +47,9 @@ export default {
     <div>
         <div class="container mt-5">
             <div class="row">
-                <div class="col-12">
-                    <h2 class="text-center">
-                        Progetti
-                    </h2>
-                    <p class="text-center">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam optio totam esse voluptate placeat, dicta iure debitis quaerat explicabo et quis quisquam dolores, unde ipsa consectetur accusantium vel laudantium in!
-                    </p>
-                </div>
                 <div class="row">
                     <div>
-                    <router-link :to="{ name: 'type-projects', params: { slug: type.slug } }" class="badge rounded-pill me-2 bg-color-black" v-for="type, index in types" :key="index" >
+                        <router-link :to="{ name: 'type-projects', params: { slug: type.slug } }" class="badge rounded-pill me-2 bg-color-black" v-for="type, index in types" :key="index" >
                         {{ type.name }}
                     </router-link>
                     </div>
