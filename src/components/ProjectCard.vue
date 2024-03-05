@@ -47,10 +47,10 @@ export default {
             <p class="card-text "><strong>Descrizione:</strong> {{project.description.substr(0,70)+"..."}}</p>
             <p class="card-text "><strong>Link:</strong> {{project.link.substr(0,30)+"..."}}</p>
             <p class="card-text"><strong>Tecnologia: </strong> 
-                <button v-for="(technology, index) in project.technologies" :key="index" class="btn btn-sm m-1 text-white" 
+                <span v-for="(technology, index) in project.technologies" :key="index" class="badge rounded-pill me-1 text-white" 
                 :style="{ backgroundColor: getTechnologyColor(technology.slug) }">
                     {{ technology.name }}
-                </button>
+                </span>
             </p>
         </div>
     </div>
