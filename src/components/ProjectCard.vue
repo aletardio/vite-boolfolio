@@ -60,6 +60,11 @@ export default {
 
 </template>
 <style lang="scss" scoped>
+
+    a{
+        text-decoration: none;
+    }
+    
     .card.my-3.shadow {
     height: 500px;
     }

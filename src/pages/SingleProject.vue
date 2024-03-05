@@ -7,7 +7,9 @@ export default {
     data() {
         return {
             store,
-            project: null
+            project: null,
+            success: null,
+            error: ''
         }
     },
     created() {
@@ -16,8 +18,14 @@ export default {
     methods: {
         getProjectData(){
             axios.get(`${this.store.baseUrl}/api/projects/${this.$route.params.slug}`).then((response) => {
-                console.log(this.$route);
-                this.project = response.data.project;
+                if(response.data.success){
+                    this.project = response.data.project;
+                    this.success = response.data.success;
+                }
+                else {
+                    this.error = response.data.error;
+                    this.success = response.data.success;
+                }
             });
         },
         getUrlImg(){
@@ -46,13 +54,20 @@ export default {
 </script>
 <template lang="">
     <div class="container">
-        <div class="row">
+        <div class="row" v-if="success == true">
             <div class="col-12">
                 <h2 class="text-center pt-5">
                     {{ project.title }}
                 </h2>
             </div>
-            <div class="col-6 pt-5">
+            <div class="row pt-4">
+                <div>
+                <span class="badge rounded-pill me-2 bg-color-black">
+                    {{ project.type.name }}
+                </span>
+                </div>
+            </div>
+            <div class="col-6 pt-3">
                 <p class="card-text "><strong>Descrizione:</strong> {{project.description}}</p>
                 <p class="card-text "><strong>Link:</strong> {{project.link}}</p>
                 <p class="card-text"><strong>Tecnologia: </strong> 
@@ -62,12 +77,18 @@ export default {
                     </span>
                 </p>
             </div>
-            <div class="col-6 pt-5">
+            <div class="col-6 pt-3">
                 <img class="w-100" :src="getUrlImg()" alt="{{project.title}}">
             </div>
         </div>
+            <h2 class="text-center pt-5" v-else>
+                {{ error}}
+            </h2>
     </div>
 </template>
 <style lang="scss" scoped>
-    
+    span.badge.rounded-pill.me-2.bg-color-black {
+        background-color:#000;
+        color: #fff;
+    }
 </style>
