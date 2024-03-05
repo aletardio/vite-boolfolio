@@ -9,7 +9,6 @@ export default {
             store,
             project: null,
             success: null,
-            error: ''
         }
     },
     created() {
@@ -23,8 +22,7 @@ export default {
                     this.success = response.data.success;
                 }
                 else {
-                    this.error = response.data.error;
-                    this.success = response.data.success;
+                    this.$router.push({ name: 'not-found'});
                 }
             });
         },
@@ -81,7 +79,7 @@ export default {
                 <img class="w-100" :src="getUrlImg()" alt="{{project.title}}">
             </div>
         </div>
-            <h2 class="text-center pt-5" v-else>
+            <h2 class="text-center pt-5" v-if="success == false">
                 {{ error}}
             </h2>
     </div>
