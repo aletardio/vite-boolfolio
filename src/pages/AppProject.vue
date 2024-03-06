@@ -2,12 +2,14 @@
 import axios from 'axios';
 import { store } from '../store.js'
 import ProjectCard from '../components/ProjectCard.vue';
+import AppLoader from '../components/AppLoader.vue';
 
 
 export default {
     name: 'AppProject',
     components: {
-        ProjectCard
+        ProjectCard,
+        AppLoader
     },
     data() {
         return {
@@ -16,6 +18,7 @@ export default {
             store,
             currentPage: 1,
             lastPage: null,
+            success: false
         }
     },
   created() {
@@ -29,6 +32,10 @@ export default {
             page: page_num
         }
       }).then((response) => {
+        setTimeout(() => {
+            this.success = response.data.success;
+        }, 1500);
+
         this.projects = response.data.results.data;
         this.currentPage = response.data.results.current_page;
         this.lastPage = response.data.results.last_page;
@@ -44,7 +51,10 @@ export default {
 }
 </script>
 <template lang="">
-    <div>
+    <div v-if="!success">
+        <AppLoader/>
+    </div>
+    <div v-else>
         <div class="container mt-5">
             <div class="row">
                 <div class="col-12">
