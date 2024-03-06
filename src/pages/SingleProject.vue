@@ -1,14 +1,18 @@
 <script>
 import { store } from '../store.js';
 import axios from 'axios';
+import AppLoader from '../components/AppLoader.vue';
 
 export default {
     name:'SingleProject',
+    components: {
+        AppLoader
+    },
     data() {
         return {
             store,
             project: null,
-            success: null,
+            success: false,
         }
     },
     created() {
@@ -18,8 +22,10 @@ export default {
         getProjectData(){
             axios.get(`${this.store.baseUrl}/api/projects/${this.$route.params.slug}`).then((response) => {
                 if(response.data.success){
+                    setTimeout(() => {
+                        this.success = response.data.success;
+                    }, 1500);
                     this.project = response.data.project;
-                    this.success = response.data.success;
                 }
                 else {
                     this.$router.push({ name: 'not-found'});
@@ -51,6 +57,9 @@ export default {
 }
 </script>
 <template lang="">
+    <div v-if="!success">
+        <AppLoader/>
+    </div>
     <div class="container">
         <div class="row" v-if="success == true">
             <div class="col-12">
