@@ -12,10 +12,14 @@ export default {
             email: '',
             phone: '',
             content: '',
+            errors: '',
+            loading: false
         }
     },
     methods: {
         sendForm(){
+            this.loading = true;
+
             const data = {
                 name: this.name,
                 surname: this.surname,
@@ -24,8 +28,27 @@ export default {
                 content: this.content
             }
 
+            this.errors = {}
+
             axios.post(`${this.store.baseUrl}/api/contacts`, data).then((response) => {
-                console.log(response.data);
+                if(response.data.success){
+                    this.name = '';
+                    this.surname = '';
+                    this.email = '';
+                    this.phone = '';
+                    this.content = '';
+
+                    this.success = true;
+
+                    this.$router.push({
+                        name: 'thank-you'
+                    });
+                }
+                else{
+                    this.errors = response.data.errors;
+                }
+
+                this.loading = false;
             });
         }
     }
@@ -33,30 +56,52 @@ export default {
 </script>
 <template lang="">
     <div>
+        <!-- <div v-if="success" class="row">
+            <div class="col-12 mt-4">
+                <div class="alert alert-success">
+                    Email inviata con successo!
+                </div>
+            </div>
+        </div> -->
         <form @submit.prevent="sendForm()" method="POST">
             <div class="row">
                 <div class="col-6 mt-3">
                     <label for="name" class="control-label">Nome</label>
-                    <input type="text" placeholder="Nome" id="name" name="name" class="form-control" v-model="name" required>
+                    <input type="text" placeholder="Nome" id="name" name="name" class="form-control" :class="errors.name ? 'is-invalid' : ''" v-model="name">
+                    <p v-for="(error, index) in errors.name" :key="`message-error-${index}`" class="text-danger">
+                        {{ error }}
+                    </p>
                 </div>
                 <div class="col-6 mt-3">
                     <label for="surname" class="control-label">Cognome</label>
-                    <input type="text" placeholder="Cognome" id="surname" name="surname" class="form-control" v-model="surname" required>
+                    <input type="text" placeholder="Cognome" id="surname" name="surname" class="form-control" :class="errors.surname ? 'is-invalid' : ''" v-model="surname">
+                    <p v-for="(error, index) in errors.surname" :key="`message-error-${index}`" class="text-danger">
+                        {{ error }}
+                    </p>
                 </div>
                 <div class="col-6 mt-3">
                     <label for="email" class="control-label">Email</label>
-                    <input type="text" placeholder="Email" id="email" name="email" class="form-control" v-model="email" required>
+                    <input type="text" placeholder="Email" id="email" name="email" class="form-control" :class="errors.email ? 'is-invalid' : ''" v-model="email">
+                    <p v-for="(error, index) in errors.email" :key="`message-error-${index}`" class="text-danger">
+                        {{ error }}
+                    </p>
                 </div>
                 <div class="col-6 mt-3">
                     <label for="phone" class="control-label">Telefono</label>
-                    <input type="text" placeholder="Telefono" id="phone" name="phone" class="form-control" v-model="phone" required>
+                    <input type="text" placeholder="Telefono" id="phone" name="phone" class="form-control" :class="errors.phone ? 'is-invalid' : ''" v-model="phone">
+                    <p v-for="(error, index) in errors.phone" :key="`message-error-${index}`" class="text-danger">
+                        {{ error }}
+                    </p>
                 </div>
                 <div class="col-12 mt-4">
                     <label for="content" class="control-label">Messaggio</label>
-                    <textarea name="content" id="content" cols="30" rows="10" class="form-control" v-model="content" placeholder="Messaggio"></textarea>
+                    <textarea name="content" id="content" cols="30" rows="10" class="form-control" :class="errors.content ? 'is-invalid' : ''" v-model="content" placeholder="Messaggio"></textarea>
+                    <p v-for="(error, index) in errors.content" :key="`message-error-${index}`" class="text-danger">
+                        {{ error }}
+                    </p>
                 </div>
                 <div class="col-12 mt-4">
-                    <button class="btn btn-sm btn-success" type="submit">Invia</button>
+                    <button class="btn btn-sm btn-success" :disabled = "loading" type="submit">{{loading ? 'Invio in corso...' : 'Invia'}}</button>
                 </div>
             </div>
         </form>
